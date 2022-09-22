@@ -57,7 +57,10 @@ function initBlock(blockData) {
 
 
     cBlock.setAttribute('data-bid', blockData.blkID)
-    cBlock.addEventListener('dblclick', editorSwitch)
+    // cBlock.addEventListener('dblclick', editorSwitch)
+
+    cBlockContent.addEventListener('dblclick', editorSwitch)
+    cBlockEditbox.addEventListener('dblclick', editorSwitch)
     cBlockEditbox.addEventListener('input', (e) => {
         cBlockEditbox.style.height = '100px'
         cBlockEditbox.style.height = e.target.scrollHeight + 'px';
@@ -65,6 +68,8 @@ function initBlock(blockData) {
     cBlockEditbox.addEventListener('focusout', editorFocusout)
     cBlockCtrlBtnNew.onclick = (e) => { blockNew(getBlockIndex(blockData.blkID)) }
     cBlockCtrlBtnDelete.onclick = (e) => { blockDelete(getBlockIndex(blockData.blkID)) }
+    cBlockCtrlBtnMoveUp.onclick = (e) => { blockExchange(getBlockIndex(blockData.blkID), getBlockIndex(blockData.blkID) - 1) }
+    cBlockCtrlBtnMoveDown.onclick = (e) => { blockExchange(getBlockIndex(blockData.blkID), getBlockIndex(blockData.blkID) + 1) }
 
     cBlockCtrl.append(cBlockCtrlBtnOption, cBlockCtrlBtnNew, cBlockCtrlBtnDelete, cBlockCtrlBtnMoveUp, cBlockCtrlBtnMoveDown)
     cBlock.append(cBlockContent, cBlockEditbox, cBlockInfo, cBlockCtrl)
@@ -80,7 +85,10 @@ function getBlockIndex(bid) {
 }
 
 function editorSwitch(event) {
-    let block = event.currentTarget
+    function findUpperBlockNode(node) {
+        return node.classList.contains('block') ? node : findUpperBlockNode(node.parentElement)
+    }
+    let block = findUpperBlockNode(event.currentTarget)
     let bid = getBlockIndex(block.getAttribute('data-bid'))
     if (block.classList.contains('editmode')) {
         block.classList.remove('editmode')
@@ -125,6 +133,22 @@ function blockNew(pos) {
 function blockDelete(pos) {
     noteData.blocks.splice(pos, 1)
     container.childNodes[pos].remove()
+    noteDataSave()
+}
+
+function blockExchange(blockPos1, blockPos2) {
+    if (blockPos2 == -1 || blockPos2 == noteData.blocks.length) { return null }
+    let block1 = container.childNodes[blockPos1]
+    let block2 = container.childNodes[blockPos2]
+    let tempNode = document.createElement('div')
+    container.insertBefore(tempNode, block2)
+    container.insertBefore(block2, block1)
+    container.insertBefore(block1, tempNode)
+    tempNode.remove()
+
+    let tempData = noteData.blocks[blockPos1]
+    noteData.blocks[blockPos1] = noteData.blocks[blockPos2]
+    noteData.blocks[blockPos2] = tempData
     noteDataSave()
 }
 

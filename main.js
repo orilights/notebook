@@ -51,6 +51,26 @@ function addNote() {
   })
 }
 
+function delNote() {
+  let toDelNote = appData.currentNote
+  localStorage.removeItem("noteData-" + toDelNote)
+  localStorage.setItem("appData", JSON.stringify(appData))
+  if (toDelNote == appData.currentNote) {
+    if (appData.noteList.length == 0) {
+      addNote()
+    } else {
+      appData.currentNote = appData.noteList[0]
+      localStorage.setItem("appData", JSON.stringify(appData))
+      setupApp()
+    }
+  }
+}
+
+function dataClear(){
+  localStorage.clear()
+  location.reload()
+}
+
 function switchNote(noteID) {
   appData.currentNote = noteID
   noteData = JSON.parse(localStorage.getItem("noteData-" + appData.currentNote))
@@ -75,19 +95,23 @@ function setupApp() {
   <nav id="nav-main">
     <div class="title">NoteBook</div>
     <button id="nav-note-add">新增笔记</button>
+    <button id="nav-data-clear">清除数据</button>
+    <button id="nav-note-del">删除当前笔记</button>
     <div id="nav-toc"></div>
     <button id="nav-ctrl">收起</button>
   </nav>
   <div id="note-container">
-    <div class="title">
+    <div class="title" contenteditable>
       <h1>${noteData.title}</h1>
     </div>
     <div id="block-container"></div>
   </div>
 `
   document.querySelector('#nav-note-add').onclick = addNote
+  document.querySelector('#nav-note-del').onclick = delNote
+  document.querySelector('#nav-data-clear').onclick = dataClear
   document.querySelector('#nav-ctrl').onclick = switchNav
-  setupNavTOC(document.querySelector('#nav-toc'), appData,switchNote)
+  setupNavTOC(document.querySelector('#nav-toc'), appData, switchNote)
   setupBlockContainer(document.querySelector('#block-container'), noteData, appData.currentNote)
 }
 

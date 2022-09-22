@@ -13,7 +13,6 @@ function renderNav() {
     navNode.innerHTML = ''
     for (let note of appData.noteList) {
         let noteData = JSON.parse(localStorage.getItem('noteData-' + note))
-        console.log(note);
         navNode.append(initNavItem(noteData.title,note))
     }
 }
