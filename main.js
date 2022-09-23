@@ -67,6 +67,12 @@ function delNote() {
   }
 }
 
+function noteTitleKeyDown(e){
+  if (e.keyCode == 13) {
+    e.preventDefault()
+  }
+}
+
 function noteTitleChange(e) {
   noteData.title = e.target.innerHTML
   localStorage.setItem("noteData-"+appData.currentNote, JSON.stringify(noteData))
@@ -119,6 +125,7 @@ function setupApp() {
   document.querySelector('#nav-data-clear').onclick = dataClear
   document.querySelector('#nav-ctrl').onclick = switchNav
   document.querySelector('#note-title').addEventListener('focusout',noteTitleChange)
+  document.querySelector('#note-title').addEventListener('keydown', noteTitleKeyDown)
   setupNavTOC(document.querySelector('#nav-toc'), appData, switchNote)
 
   setupBlockContainer(document.querySelector('#block-container'), noteData, appData.currentNote)
