@@ -54,6 +54,7 @@ function addNote() {
 function delNote() {
   let toDelNote = appData.currentNote
   localStorage.removeItem("noteData-" + toDelNote)
+  appData.noteList.splice(appData.noteList.indexOf(toDelNote),1)
   localStorage.setItem("appData", JSON.stringify(appData))
   if (toDelNote == appData.currentNote) {
     if (appData.noteList.length == 0) {
@@ -66,6 +67,12 @@ function delNote() {
   }
 }
 
+function noteTitleChange(e) {
+  noteData.title = e.target.innerHTML
+  localStorage.setItem("noteData-"+appData.currentNote, JSON.stringify(noteData))
+  setupNavTOC(document.querySelector('#nav-toc'), appData, switchNote)
+}
+
 function dataClear(){
   localStorage.clear()
   location.reload()
@@ -73,7 +80,6 @@ function dataClear(){
 
 function switchNote(noteID) {
   appData.currentNote = noteID
-  noteData = JSON.parse(localStorage.getItem("noteData-" + appData.currentNote))
   localStorage.setItem("appData", JSON.stringify(appData))
   setupApp()
 }
@@ -91,6 +97,7 @@ function switchNav() {
 }
 
 function setupApp() {
+  noteData = JSON.parse(localStorage.getItem("noteData-" + appData.currentNote))
   document.querySelector('#app').innerHTML = `
   <nav id="nav-main">
     <div class="title">NoteBook</div>
@@ -101,8 +108,8 @@ function setupApp() {
     <button id="nav-ctrl">收起</button>
   </nav>
   <div id="note-container">
-    <div class="title" contenteditable>
-      <h1>${noteData.title}</h1>
+    <div class="title">
+      <h1 id="note-title" contenteditable>${noteData.title}</h1>
     </div>
     <div id="block-container"></div>
   </div>
@@ -111,7 +118,9 @@ function setupApp() {
   document.querySelector('#nav-note-del').onclick = delNote
   document.querySelector('#nav-data-clear').onclick = dataClear
   document.querySelector('#nav-ctrl').onclick = switchNav
+  document.querySelector('#note-title').addEventListener('focusout',noteTitleChange)
   setupNavTOC(document.querySelector('#nav-toc'), appData, switchNote)
+
   setupBlockContainer(document.querySelector('#block-container'), noteData, appData.currentNote)
 }
 
