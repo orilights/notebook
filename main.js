@@ -54,7 +54,7 @@ function addNote() {
 function delNote() {
   let toDelNote = appData.currentNote
   localStorage.removeItem("noteData-" + toDelNote)
-  appData.noteList.splice(appData.noteList.indexOf(toDelNote),1)
+  appData.noteList.splice(appData.noteList.indexOf(toDelNote), 1)
   localStorage.setItem("appData", JSON.stringify(appData))
   if (toDelNote == appData.currentNote) {
     if (appData.noteList.length == 0) {
@@ -67,7 +67,7 @@ function delNote() {
   }
 }
 
-function noteTitleKeyDown(e){
+function noteTitleKeyDown(e) {
   if (e.keyCode == 13) {
     e.preventDefault()
   }
@@ -75,11 +75,11 @@ function noteTitleKeyDown(e){
 
 function noteTitleChange(e) {
   noteData.title = e.target.innerHTML
-  localStorage.setItem("noteData-"+appData.currentNote, JSON.stringify(noteData))
+  localStorage.setItem("noteData-" + appData.currentNote, JSON.stringify(noteData))
   setupNavTOC(document.querySelector('#nav-toc'), appData, switchNote)
 }
 
-function dataClear(){
+function dataClear() {
   localStorage.clear()
   location.reload()
 }
@@ -124,7 +124,7 @@ function setupApp() {
   document.querySelector('#nav-note-del').onclick = delNote
   document.querySelector('#nav-data-clear').onclick = dataClear
   document.querySelector('#nav-ctrl').onclick = switchNav
-  document.querySelector('#note-title').addEventListener('focusout',noteTitleChange)
+  document.querySelector('#note-title').addEventListener('focusout', noteTitleChange)
   document.querySelector('#note-title').addEventListener('keydown', noteTitleKeyDown)
   setupNavTOC(document.querySelector('#nav-toc'), appData, switchNote)
 

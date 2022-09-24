@@ -1,5 +1,6 @@
 import { marked } from 'marked'
 import hljs from 'highlight.js'
+import Sortable from 'sortablejs'
 
 let container = null
 let noteData = null
@@ -25,6 +26,9 @@ function renderBlockContainer() {
     for (let block of noteData.blocks) {
         container.append(initBlock(block))
     }
+    Sortable.create(container, {
+        onUpdate: blockMove
+    })
 }
 
 function initBlock(blockData) {
@@ -133,6 +137,15 @@ function blockNew(pos) {
 function blockDelete(pos) {
     noteData.blocks.splice(pos, 1)
     container.childNodes[pos].remove()
+    noteDataSave()
+}
+
+function blockMove(evt) {
+    console.log(noteData.blocks);
+    let blockPos = evt.oldIndex
+    let blockData = noteData.blocks.splice(blockPos, 1)[0]
+    noteData.blocks.splice(evt.newIndex, 0, blockData)
+    console.log(noteData.blocks);
     noteDataSave()
 }
 
