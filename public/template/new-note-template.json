@@ -1,6 +1,6 @@
 {
-    "title": "笔记标题",
-    "inc": 4,
+    "title": "新笔记",
+    "inc": 5,
     "blocks": [
         {
             "blkID": 0,
@@ -13,7 +13,7 @@
         {
             "blkID": 1,
             "blkType": "Markdown",
-            "blkContent": "## 开始写作\n \n这是一篇新笔记",
+            "blkContent": "## 开始写作\n \n这是一篇**新笔记**",
             "blkAuthor": "Default Template",
             "blkCreateTime": 0,
             "blkLastEditTime": 0
@@ -21,7 +21,7 @@
         {
             "blkID": 2,
             "blkType": "Markdown",
-            "blkContent": "## 链接示例\n \n[Github仓库](https://github.com/OriLight152/vue-note-app)",
+            "blkContent": "---",
             "blkAuthor": "Default Template",
             "blkCreateTime": 0,
             "blkLastEditTime": 0
@@ -29,13 +29,21 @@
         {
             "blkID": 3,
             "blkType": "Markdown",
-            "blkContent": "## 图片示例\n \n![1661919633933.png](https://icdn.amarea.cn/upload/2022/08/630f111a1e88c.png)",
+            "blkContent": "## 链接示例\n \n[Github仓库](https://github.com/OriLight152/notebook)",
             "blkAuthor": "Default Template",
             "blkCreateTime": 0,
             "blkLastEditTime": 0
         },
         {
             "blkID": 4,
+            "blkType": "Markdown",
+            "blkContent": "## 图片示例\n \n![1661919633933.png](https://icdn.amarea.cn/upload/2022/08/630f111a1e88c.png)",
+            "blkAuthor": "Default Template",
+            "blkCreateTime": 0,
+            "blkLastEditTime": 0
+        },
+        {
+            "blkID": 5,
             "blkType": "Markdown",
             "blkContent": "## 代码块示例\n \n```js\nmarked.setOptions({\n    highlight: function (code, lang) {\n        const language = hljs.getLanguage(lang) ? lang : 'plaintext';\n        return hljs.highlight(code, { language }).value;\n    },\n    langPrefix: 'hljs language-'\n})\n```",
             "blkAuthor": "Default Template",
