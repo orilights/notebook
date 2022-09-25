@@ -107,6 +107,7 @@ button.block-ctrl-btn:focus-visible {
 
 #nav-main .title {
   font-size: 2em;
+  margin-bottom: 20px;
 }
 
 #nav-main.nav-fold {
@@ -128,7 +129,7 @@ button.block-ctrl-btn:focus-visible {
 #nav-toc {
   position: relative;
   padding: 20px;
-  height: calc(100% - 100px);
+  height: calc(100% - 180px);
   overflow-y: auto;
 }
 

@@ -20,6 +20,7 @@ function setupBlockContainer(blockContainer, recvNoteData, recvNoteID) {
     container = blockContainer
     noteData = recvNoteData
     noteID = recvNoteID
+    console.log('[notebook]Load note ' + noteID);
     renderBlockContainer()
 }
 
@@ -149,11 +150,9 @@ function blockDelete(pos) {
 }
 
 function blockMove(evt) {
-    console.log(noteData.blocks);
     let blockPos = evt.oldIndex
     let blockData = noteData.blocks.splice(blockPos, 1)[0]
     noteData.blocks.splice(evt.newIndex, 0, blockData)
-    console.log(noteData.blocks);
     noteDataSave()
 }
 
@@ -175,7 +174,7 @@ function blockExchange(blockPos1, blockPos2) {
 
 function noteDataSave() {
     localStorage.setItem("noteData-" + noteID, JSON.stringify(noteData))
-    console.log('[notebook]Save data');
+    console.log('[notebook]Save block data ' + noteID);
 }
 
 export { setupBlockContainer }

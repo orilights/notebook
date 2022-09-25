@@ -12,11 +12,13 @@ let noteData = {}
 
 if (localStorage.getItem("appData") != null) {
   appData = JSON.parse(localStorage.getItem("appData"))
+  console.log('[notebook]Load data from localStorage');
   getNote()
 } else {
   axios.get("/template/app-data-template.json").then((responce) => {
     appData = responce.data
     localStorage.setItem("appData", JSON.stringify(appData))
+    console.log('[notebook]Load data from template');
     getNote()
   })
 }
@@ -29,14 +31,7 @@ function getNote() {
     noteData = JSON.parse(localStorage.getItem("noteData-" + appData.currentNote))
     setupApp()
   } else {
-    axios.get("/template/new-note-template.json").then((responce) => {
-      noteData = responce.data
-      appData.noteList.push(uuidv4())
-      appData.currentNote = appData.noteList[0]
-      localStorage.setItem("noteData-" + appData.currentNote, JSON.stringify(noteData))
-      localStorage.setItem("appData", JSON.stringify(appData))
-      setupApp()
-    })
+    addNote()
   }
 }
 
@@ -45,6 +40,7 @@ function addNote() {
     noteData = responce.data
     appData.noteList.push(uuidv4())
     appData.currentNote = appData.noteList[appData.noteList.length - 1]
+    console.log('[notebook]Add note ' + appData.currentNote);
     localStorage.setItem("noteData-" + appData.currentNote, JSON.stringify(noteData))
     localStorage.setItem("appData", JSON.stringify(appData))
     setupApp()
@@ -56,6 +52,7 @@ function delNote() {
   localStorage.removeItem("noteData-" + toDelNote)
   appData.noteList.splice(appData.noteList.indexOf(toDelNote), 1)
   localStorage.setItem("appData", JSON.stringify(appData))
+  console.log('[notebook]Delete note ' + toDelNote);
   if (toDelNote == appData.currentNote) {
     if (appData.noteList.length == 0) {
       addNote()
