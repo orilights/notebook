@@ -108,8 +108,8 @@ function setupApp() {
   <nav id="nav-main">
     <div class="title">NoteBook</div>
     <button id="nav-note-add">新增笔记</button>
+    <button id="nav-note-del">删除笔记</button>
     <button id="nav-data-clear">清除数据</button>
-    <button id="nav-note-del">删除当前笔记</button>
     <div id="nav-toc"></div>
     <button id="nav-ctrl">收起</button>
   </nav>

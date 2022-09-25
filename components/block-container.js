@@ -1,10 +1,12 @@
 import { marked } from 'marked'
 import hljs from 'highlight.js'
-import Sortable from 'sortablejs'
+import Sortable, { AutoScroll } from 'sortablejs/modular/sortable.core.esm.js'
 
 let container = null
 let noteData = null
 let noteID = ""
+
+Sortable.mount(new AutoScroll());
 
 marked.setOptions({
     highlight: function (code, lang) {
@@ -27,6 +29,11 @@ function renderBlockContainer() {
         container.append(initBlock(block))
     }
     Sortable.create(container, {
+        ghostClass: "ghost",
+        animation: 150,
+        easing: "cubic-bezier(1, 0, 0, 1)",
+        handle: '.move-handle',
+        scroll: true,
         onUpdate: blockMove
     })
 }
@@ -49,7 +56,8 @@ function initBlock(blockData) {
     cBlockEditbox.className = 'content-editor'
     cBlockInfo.className = 'block-info'
     cBlockCtrl.className = 'block-ctrl'
-    cBlockCtrlBtnOption.className = cBlockCtrlBtnNew.className = cBlockCtrlBtnDelete.className = cBlockCtrlBtnMoveUp.className = cBlockCtrlBtnMoveDown.className = 'block-ctrl-btn'
+    cBlockCtrlBtnOption.className = 'block-ctrl-btn move-handle'
+    cBlockCtrlBtnNew.className = cBlockCtrlBtnDelete.className = cBlockCtrlBtnMoveUp.className = cBlockCtrlBtnMoveDown.className = 'block-ctrl-btn'
 
     cBlockContent.innerHTML = marked.parse(blockData.blkContent)
     cBlockInfo.textContent = "Block ID：" + blockData.blkID + " | 创建人：" + blockData.blkAuthor + " | 创建时间：" + blockData.blkCreateTime
@@ -167,7 +175,7 @@ function blockExchange(blockPos1, blockPos2) {
 
 function noteDataSave() {
     localStorage.setItem("noteData-" + noteID, JSON.stringify(noteData))
-    console.log('save data');
+    console.log('[notebook]Save data');
 }
 
 export { setupBlockContainer }
