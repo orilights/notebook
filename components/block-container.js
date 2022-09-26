@@ -133,7 +133,7 @@ function blockNew(pos) {
     let nBlockData = {
         blkID: ++noteData.inc,
         blkType: 'Markdown',
-        blkContent: 'New Block\n \n任意写作',
+        blkContent: 'New Block\n \n写点什么',
         blkAuthor: "anonymous",
         blkCreateTime: Date.now(),
         blkLastEditTime: Date.now()

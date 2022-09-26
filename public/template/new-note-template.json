@@ -21,7 +21,7 @@
         {
             "blkID": 2,
             "blkType": "Markdown",
-            "blkContent": "---",
+            "blkContent": "---\n \n分隔符",
             "blkAuthor": "Default Template",
             "blkCreateTime": 0,
             "blkLastEditTime": 0
