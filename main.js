@@ -48,16 +48,21 @@ function addNote() {
 }
 
 function delNote() {
-  let toDelNote = appData.currentNote
-  localStorage.removeItem("noteData-" + toDelNote)
-  appData.noteList.splice(appData.noteList.indexOf(toDelNote), 1)
+  let delNote = appData.currentNote
+  let delNoteIndex = appData.noteList.indexOf(delNote)
+  localStorage.removeItem("noteData-" + delNote)
+  appData.noteList.splice(delNoteIndex, 1)
   localStorage.setItem("appData", JSON.stringify(appData))
-  console.log('[notebook]Delete note ' + toDelNote);
-  if (toDelNote == appData.currentNote) {
+  console.log('[notebook]Delete note ' + delNote);
+  if (delNote == appData.currentNote) {
     if (appData.noteList.length == 0) {
       addNote()
     } else {
-      appData.currentNote = appData.noteList[0]
+      if (delNoteIndex == 0) {
+        appData.currentNote = appData.noteList[0]
+      } else {
+        appData.currentNote = appData.noteList[delNoteIndex - 1]
+      }
       localStorage.setItem("appData", JSON.stringify(appData))
       setupApp()
     }
