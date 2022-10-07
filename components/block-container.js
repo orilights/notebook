@@ -20,6 +20,7 @@ function setupBlockContainer(blockContainer, recvNoteData, recvNoteID) {
     container = blockContainer
     noteData = recvNoteData
     noteID = recvNoteID
+    document.querySelector('#note-add-top').onclick = () => { blockNew(-1) }
     console.log('[notebook]Load note ' + noteID);
     renderBlockContainer()
 }
@@ -110,7 +111,7 @@ function editorSwitch(event) {
         noteDataSave()
     } else {
         block.childNodes[1].value = noteData.blocks[bid].blkContent
-        block.childNodes[0].innerHTML = '<span style="color: #4b0082">编辑模式</span>'
+        block.childNodes[0].innerHTML = '<span style="color: #4b0082;font-weight:bold;">编辑模式</span>'
         block.classList.add('editmode')
         block.childNodes[1].style.height = '80px'
         block.childNodes[1].style.height = block.childNodes[1].scrollHeight + 'px';
@@ -130,7 +131,7 @@ function editorFocusout(event) {
 }
 
 function blockNew(pos) {
-    let nBlockData = {
+    let newBlockData = {
         blkID: ++noteData.inc,
         blkType: 'Markdown',
         blkContent: 'New Block\n \n写点什么',
@@ -138,8 +139,13 @@ function blockNew(pos) {
         blkCreateTime: Date.now(),
         blkLastEditTime: Date.now()
     }
-    noteData.blocks.splice(pos + 1, 0, nBlockData)
-    container.childNodes[pos].after(initBlock(nBlockData))
+    if (pos == -1) {
+        noteData.blocks.splice(0, 0, newBlockData)
+        container.insertBefore(initBlock(newBlockData), container.childNodes[0])
+    } else {
+        noteData.blocks.splice(pos + 1, 0, newBlockData)
+        container.childNodes[pos].after(initBlock(newBlockData))
+    }
     noteDataSave()
 }
 

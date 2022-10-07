@@ -130,6 +130,7 @@ function setupApp() {
   <div id="note-container">
     <div class="title">
       <h1 id="note-title" contenteditable>${noteData.title}</h1>
+      <button id="note-add-top" class="note-top-ctrl">新增 Block</button>
     </div>
     <div id="block-container"></div>
   </div>
