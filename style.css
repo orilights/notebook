@@ -63,6 +63,8 @@ tr:nth-child(2n) {
 
 code {
   background-color: #fff7d2;
+  padding: 2px;
+  margin: 0 2px;
 }
 
 button {
