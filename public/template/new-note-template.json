@@ -5,7 +5,7 @@
         {
             "blkID": 0,
             "blkType": "Markdown",
-            "blkContent": "## Hello World",
+            "blkContent": "## 设计说明\n\n1. 一本笔记本由若干篇笔记组成，一篇笔记由若干个块（Block）组成\n2. 笔记本界面由`顶部菜单区`、`左部可收起的目录区`和`中部浏览区`三部分组成\n3. 每个 Block 根据创建的次序进行编号，上下移动 Block 不会改变编号\n4. 所有数据存储在浏览器的 Local Storage 中，应用会自动读取浏览器数据，若数据不存在则通过自带的模板创建数据",
             "blkAuthor": "Default Template",
             "blkCreateTime": 0,
             "blkLastEditTime": 0
@@ -13,7 +13,7 @@
         {
             "blkID": 1,
             "blkType": "Markdown",
-            "blkContent": "## 开始写作\n \n这是一篇**新笔记**",
+            "blkContent": "## 使用说明\n\n1. 每个 Block 左侧有一个悬浮功能区，其中5个按钮的功能依次是 `拖动排序`，`在下方新增 Block`，`删除 Block`，`上移 Block`，`下移 Block`\n2. 双击 Block 可在 `预览模式`与`编辑模式` 两者间转换，当 Block 处于`编辑模式`时，编辑框失去焦点后会自动转换为`预览模式`\n3. 鼠标悬停在 Block 上时，Block 的右上角会显示当前 Block 的 BlockID、创建人、创建时间等信息\n4. `编辑模式`使用 Markdown 语法\n5. `编辑模式`下输入框会根据输入的内容自动调整高度",
             "blkAuthor": "Default Template",
             "blkCreateTime": 0,
             "blkLastEditTime": 0
@@ -21,7 +21,7 @@
         {
             "blkID": 2,
             "blkType": "Markdown",
-            "blkContent": "---\n \n分隔符",
+            "blkContent": "## 补充说明\n\n### 第三方开源库使用说明\n\n| 开源库       | 来源 | 说明                           |\n| ------------ | ---- | ------------------------------ |\n| axios        | npm  | 网络请求                       |\n| highlight.js | npm  | 实现代码高亮功能               |\n| marked       | npm  | 实现 Markdown 解析功能         |\n| sortablejs   | npm  | 实现 Block 拖动排序功能        |\n| uuid         | npm  | UUID（通用唯一识别码）生成工具 |",
             "blkAuthor": "Default Template",
             "blkCreateTime": 0,
             "blkLastEditTime": 0
@@ -29,7 +29,7 @@
         {
             "blkID": 3,
             "blkType": "Markdown",
-            "blkContent": "## 链接示例\n \n[Github仓库](https://github.com/OriLight152/notebook)",
+            "blkContent": "分隔符示例\n\n---\n\n## 链接示例\n\n[Github仓库](https://github.com/OriLight152/notebook)",
             "blkAuthor": "Default Template",
             "blkCreateTime": 0,
             "blkLastEditTime": 0
