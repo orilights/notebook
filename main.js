@@ -92,16 +92,28 @@ function switchNote(noteID) {
   setupApp()
 }
 
+function initNav() {
+  let nav = document.querySelector('#nav-main')
+  let navCtrl = document.querySelector('#nav-ctrl')
+  if (!appData.navExpand) {
+    nav.classList.add('nav-fold')
+    navCtrl.textContent = '展开'
+  }
+}
+
 function switchNav() {
   let nav = document.querySelector('#nav-main')
   let navCtrl = document.querySelector('#nav-ctrl')
   if (nav.classList.contains('nav-fold')) {
     nav.classList.remove('nav-fold')
     navCtrl.textContent = '收起'
+    appData.navExpand = true
   } else {
     nav.classList.add('nav-fold')
     navCtrl.textContent = '展开'
+    appData.navExpand = false
   }
+  localStorage.setItem("appData", JSON.stringify(appData))
 }
 
 function setupApp() {
@@ -128,6 +140,7 @@ function setupApp() {
   document.querySelector('#nav-ctrl').onclick = switchNav
   document.querySelector('#note-title').addEventListener('focusout', noteTitleChange)
   document.querySelector('#note-title').addEventListener('keydown', noteTitleKeyDown)
+  initNav()
   setupNavTOC(document.querySelector('#nav-toc'), appData, switchNote)
 
   setupBlockContainer(document.querySelector('#block-container'), noteData, appData.currentNote)

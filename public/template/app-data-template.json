@@ -1,7 +1,8 @@
 {
-    "userName": "anonymous", 
+    "userName": "anonymous",
     "userID": -1,
     "userToken": "expired",
     "currentNote": "",
+    "navExpand": false,
     "noteList": []
 }
