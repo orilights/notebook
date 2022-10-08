@@ -102,9 +102,6 @@ button.block-ctrl-btn:focus-visible {
 }
 
 button.note-top-ctrl {
-  position: absolute;
-  left: 0;
-  bottom: -35px;
   margin: 0 5px 5px 0;
   padding: 3px 10px;
 }

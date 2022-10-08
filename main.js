@@ -69,6 +69,18 @@ function delNote() {
   }
 }
 
+function saveNoteAsFile() {
+  let content = JSON.stringify(noteData);
+  let blob = new Blob([content], { type: "text/plain;charset=utf-8" })
+  let tmpLink = document.createElement('a')
+  tmpLink.download = "note.json"
+  tmpLink.style.display = 'none'
+  tmpLink.href = URL.createObjectURL(blob)
+  document.body.appendChild(tmpLink)
+  tmpLink.click()
+  document.body.removeChild(tmpLink)
+}
+
 function noteTitleKeyDown(e) {
   if (e.keyCode == 13) {
     e.preventDefault()
@@ -131,6 +143,7 @@ function setupApp() {
     <div class="title">
       <h1 id="note-title" contenteditable>${noteData.title}</h1>
       <button id="note-add-top" class="note-top-ctrl">新增 Block</button>
+      <button id="note-save" class="note-top-ctrl">保存当前笔记到文件</button>
     </div>
     <div id="block-container"></div>
   </div>
@@ -139,6 +152,7 @@ function setupApp() {
   document.querySelector('#nav-note-del').onclick = delNote
   document.querySelector('#nav-data-clear').onclick = dataClear
   document.querySelector('#nav-ctrl').onclick = switchNav
+  document.querySelector('#note-save').onclick = saveNoteAsFile
   document.querySelector('#note-title').addEventListener('focusout', noteTitleChange)
   document.querySelector('#note-title').addEventListener('keydown', noteTitleKeyDown)
   initNav()
