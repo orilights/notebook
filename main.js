@@ -69,6 +69,26 @@ function delNote() {
   }
 }
 
+function readNoteFromFile() {
+  let tmpInput = document.createElement('input')
+  tmpInput.style.display = 'none'
+  tmpInput.type = 'file'
+  tmpInput.setAttribute('filename', 'note.json')
+  tmpInput.accept = 'application/json'
+  document.body.appendChild(tmpInput)
+
+  tmpInput.addEventListener('change', () => {
+    const reader = new FileReader()
+    reader.readAsText(tmpInput.files[0], 'utf8')
+    reader.onload = () => {
+      localStorage.setItem("noteData-" + appData.currentNote, reader.result)
+      setupApp()
+    }
+    document.body.removeChild(tmpInput)
+  }, false)
+  tmpInput.click()
+}
+
 function saveNoteAsFile() {
   let content = JSON.stringify(noteData);
   let blob = new Blob([content], { type: "text/plain;charset=utf-8" })
@@ -144,6 +164,7 @@ function setupApp() {
       <h1 id="note-title" contenteditable>${noteData.title}</h1>
       <button id="note-add-top" class="note-top-ctrl">新增 Block</button>
       <button id="note-save" class="note-top-ctrl">保存当前笔记到文件</button>
+      <button id="note-read" class="note-top-ctrl">从文件读取笔记数据</button>
     </div>
     <div id="block-container"></div>
   </div>
@@ -153,6 +174,7 @@ function setupApp() {
   document.querySelector('#nav-data-clear').onclick = dataClear
   document.querySelector('#nav-ctrl').onclick = switchNav
   document.querySelector('#note-save').onclick = saveNoteAsFile
+  document.querySelector('#note-read').onclick = readNoteFromFile
   document.querySelector('#note-title').addEventListener('focusout', noteTitleChange)
   document.querySelector('#note-title').addEventListener('keydown', noteTitleKeyDown)
   initNav()
